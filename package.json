@@ -1,0 +1,23 @@
+{
+  "name": "priv-triad",
+  "version": "0.0.1",
+  "description": "Web tool for encrypting crypto wallet private keys with multi passwords",
+  "author": "@ndaidong",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "svelte": "^3.55.1",
+    "vite": "^4.2.0"
+  },
+  "private": true
+}

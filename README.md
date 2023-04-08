@@ -1,2 +1,2 @@
-# priv-triad
-PrivTriad - Make your private keys safer
+# privkeysafe
+Web tool for encrypting crypto wallet private keys with multi passwords
