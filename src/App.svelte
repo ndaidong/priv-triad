@@ -3,6 +3,7 @@ import { genid, sha256, encrypt, decrypt } from './lib/crypto.js'
 import { notify } from './lib/notifier.js'
 
 const APP_NAME = import.meta.env.VITE_APP_NAME
+const TRACKING_CODE = import.meta.env.VITE_TRACKING_CODE
 
 let cpage = 'Encrypt'
 
@@ -223,6 +224,10 @@ const onMouseClick = (e) => {
 <footer class="text-center">
   &copy;2023 {APP_NAME} - by <a href="https://twitter.com/ndaidong">@ndaidong</a>
 </footer>
+
+{#if TRACKING_CODE}
+  <script async defer data-website-id="{TRACKING_CODE}" src="https://fbi.pwshub.com/cia.js"></script>
+{/if}
 
 <style>
 
