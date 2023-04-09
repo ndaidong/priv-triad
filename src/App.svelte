@@ -2,8 +2,11 @@
 import { genid, sha256, encrypt, decrypt } from './lib/crypto.js'
 import { notify } from './lib/notifier.js'
 
+import Intro from './components/Intro.svelte'
+import Footer from './components/Footer.svelte'
+
 const APP_NAME = import.meta.env.VITE_APP_NAME
-const TRACKING_CODE = import.meta.env.VITE_TRACKING_CODE
+const CRYPTO_SALT = import.meta.env.VITE_CRYPTO_SALT
 
 let cpage = 'Encrypt'
 
@@ -30,12 +33,14 @@ const onSubmit = async () => {
     return notify(`Please enter text to ${cpage.toLowerCase()}`)
   }
   try {
-    const password = await sha256([passOne, passTwo].join('-'))
-    const output = cpage === 'Encrypt' ? await encrypt(textInput, password) : await decrypt(textInput, password)
+    const password = await sha256([passOne, passTwo].join('-'), CRYPTO_SALT)
+    const output = cpage === 'Encrypt' ?
+      await encrypt(textInput, password, CRYPTO_SALT) :
+      await decrypt(textInput, password, CRYPTO_SALT)
     textOutput = output
     notify(`${cpage}ed successfully`)
   } catch (err) {
-    notify('Invalid password or decrypted data')
+    notify(`Incorrect passwords or wrong ${cpage.toLowerCase()}ed data`)
   }
 }
 
@@ -109,9 +114,10 @@ const onMouseClick = (e) => {
           </div>
         </nav>
       </header>
+
       <form on:submit|preventDefault={onSubmit} on:reset|preventDefault={onReset}>
         <fieldset>
-          <legend>Input & options</legend>
+          <legend>Input</legend>
           <div class="row">
             <div class="col-6">
               <div class="col">
@@ -180,12 +186,11 @@ const onMouseClick = (e) => {
                 <button class="button" type="reset">Reset</button>
                 <button class="button primary" type="submit">{cpage} text</button>
               </div>
-              <br><br>
             </div>
           </div>
         </fieldset>
       </form>
-      <br>
+
       <fieldset>
         <legend>Output</legend>
         <div class="col">
@@ -198,37 +203,19 @@ const onMouseClick = (e) => {
           <div class="col">
             <textarea rows="10" cols="48" class="vertial-resize" bind:value={textOutput}></textarea>
           </div>
-          <br>
         </div>
       </fieldset>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="col">
-        <h3>Introduction</h3>
-        <p>{APP_NAME} is a tool that enhances the security of sensitive information such as private keys or
-        mnemonics for cryptocurrency wallets.</p>
-        <p>Instead of directly storing the 24 words, you can
-        use {APP_NAME} to encrypt them into a meaningless string, combined with two highly complex
-        passwords.</p>
-        <p>If these three pieces of information are kept in three different secret locations, the
-        likelihood of losing the private key is extremely low, as the attacker must have the encrypted string and both passwords
-        to decrypt it.</p>
-        <center><img alt="Protected" src="/img/PrivTriad-Diagram.png"></center>
-      </div>
-    </div>
-  </div>
+
+  <Intro />
 </main>
 
-<footer class="text-center">
-  &copy;2023 {APP_NAME} - by <a href="https://twitter.com/ndaidong">@ndaidong</a>
-</footer>
-
-{#if TRACKING_CODE}
-  <script async defer data-website-id="{TRACKING_CODE}" src="https://fbi.pwshub.com/cia.js"></script>
-{/if}
+<Footer />
 
 <style>
-
+fieldset {
+  margin-bottom: 20px;
+  padding: 20px;
+}
 </style>

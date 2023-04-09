@@ -12,7 +12,7 @@ const KEY_USAGES = [
   'decrypt',
 ]
 
-const SALT = 'bWDj59z2D8pZ7jsr'
+const DEFAULT_CRYPTO_SALT = 'bWDj59z2D8pZ7jsr'
 
 const toHex = (buffer) => {
   return [...new Uint8Array(buffer)]
@@ -46,18 +46,18 @@ const hash = async (message, salt, algorithm) => {
   return toHex(hashArray)
 }
 
-export const sha256 = async (message, salt = SALT) => {
+export const sha256 = async (message, salt = DEFAULT_CRYPTO_SALT) => {
   const encoded = await hash(message, salt, { name: 'HMAC', hash: 'SHA-256' })
   return encoded // 64 hex chars
 }
 
-export const passiv = async (password, salt = SALT) => {
+export const passiv = async (password, salt = DEFAULT_CRYPTO_SALT) => {
   const hex = await sha256(password, salt)
   const ivp = hex.match(/.{1,4}/g).map(hexchar => parseInt(hexchar, 16))
   return new Uint16Array(ivp)
 }
 
-export const encrypt = async (message, password, salt = SALT) => {
+export const encrypt = async (message, password, salt = DEFAULT_CRYPTO_SALT) => {
   const encoded = (new TextEncoder()).encode(message)
   const key = await crypto.subtle.generateKey(ALGORITHM, KEY_EXTRACTABLE, KEY_USAGES)
   const iv = await passiv(password, salt)
@@ -73,7 +73,7 @@ export const encrypt = async (message, password, salt = SALT) => {
   return `${toHex(ciphertext)}${toHex(exportedKey)}`
 }
 
-export const decrypt = async (encoded, password, salt = SALT) => {
+export const decrypt = async (encoded, password, salt = DEFAULT_CRYPTO_SALT) => {
   const n = encoded.length - 64
   const hexkey = encoded.substring(n)
   const encryptedText = encoded.substring(0, n)
