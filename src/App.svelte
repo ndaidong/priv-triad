@@ -3,6 +3,7 @@ import { genid, sha256, encrypt, decrypt } from './lib/crypto.js'
 import { notify } from './lib/notifier.js'
 
 const APP_NAME = import.meta.env.VITE_APP_NAME
+const CRYPTO_SALT = import.meta.env.VITE_CRYPTO_SALT
 const TRACKING_CODE = import.meta.env.VITE_TRACKING_CODE
 
 let cpage = 'Encrypt'
@@ -30,12 +31,14 @@ const onSubmit = async () => {
     return notify(`Please enter text to ${cpage.toLowerCase()}`)
   }
   try {
-    const password = await sha256([passOne, passTwo].join('-'))
-    const output = cpage === 'Encrypt' ? await encrypt(textInput, password) : await decrypt(textInput, password)
+    const password = await sha256([passOne, passTwo].join('-'), CRYPTO_SALT)
+    const output = cpage === 'Encrypt' ?
+      await encrypt(textInput, password, CRYPTO_SALT) :
+      await decrypt(textInput, password, CRYPTO_SALT)
     textOutput = output
     notify(`${cpage}ed successfully`)
   } catch (err) {
-    notify('Invalid password or decrypted data')
+    notify(`Invalid password or ${cpage.toLowerCase()}ed data`)
   }
 }
 
@@ -180,12 +183,11 @@ const onMouseClick = (e) => {
                 <button class="button" type="reset">Reset</button>
                 <button class="button primary" type="submit">{cpage} text</button>
               </div>
-              <br><br>
             </div>
           </div>
         </fieldset>
       </form>
-      <br>
+
       <fieldset>
         <legend>Output</legend>
         <div class="col">
@@ -198,7 +200,6 @@ const onMouseClick = (e) => {
           <div class="col">
             <textarea rows="10" cols="48" class="vertial-resize" bind:value={textOutput}></textarea>
           </div>
-          <br>
         </div>
       </fieldset>
     </div>
@@ -222,7 +223,9 @@ const onMouseClick = (e) => {
 </main>
 
 <footer class="text-center">
-  &copy;2023 {APP_NAME} - by <a href="https://twitter.com/ndaidong">@ndaidong</a>
+  &copy;2023 {APP_NAME} - Maintain by <a href="https://twitter.com/ndaidong">@ndaidong</a>
+  <br>
+  <a href="https://github.com/ndaidong/priv-triad">Source code</a> &diamond; <a href="https://paypal.me/ndaidong">Donate</a>
 </footer>
 
 {#if TRACKING_CODE}
@@ -230,5 +233,8 @@ const onMouseClick = (e) => {
 {/if}
 
 <style>
-
+fieldset {
+  margin-bottom: 20px;
+  padding: 20px;
+}
 </style>
