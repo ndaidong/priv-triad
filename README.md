@@ -14,6 +14,7 @@ Please fork this repo, then:
 ```sh
 git clone git@github.com:{YOUR_NAME}/priv-triad.git
 cd priv-triad
+cp example.env .env
 npm i
 npm run dev
 ```
