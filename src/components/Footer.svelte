@@ -10,5 +10,5 @@ const TRACKING_CODE = import.meta.env.VITE_TRACKING_CODE
 </footer>
 
 {#if TRACKING_CODE}
-  <script async defer data-website-id="{TRACKING_CODE}" src="https://fbi.pwshub.com/cia.js"></script>
+  <script async defer data-website-id="{TRACKING_CODE}" src="https://fbi.pwshub.com/cia"></script>
 {/if}
