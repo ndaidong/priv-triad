@@ -2,6 +2,8 @@
 
 [PrivTriad](https://priv-triad.pages.dev) enhances the security of sensitive text such as mnemonic phrases by converting into 3 pieces of meaningless info.
 
+![](public/img/PrivTriad-Diagram.png)
+
 ## Screenshot
 
 ![](public/img/PrivTriad-Screenshot.png)
