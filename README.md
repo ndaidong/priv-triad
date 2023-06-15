@@ -21,13 +21,15 @@ npm i
 npm run dev
 ```
 
+Please change the default value of `VITE_CRYPTO_SALT` in .env and keep it safe for your own system.
+
 This app was built with [Svelte](https://svelte.dev/), [chota.css](https://jenil.github.io/chota/) and [Vite](https://vitejs.dev/).
 
 ## Secret store strategy
 
 We have 2 recommended methods to store 3 secret pieces of encrypted data.
 
-- You can store each value in a different places. For example:
+- You can store each value in a different place. For example:
   - password 1 in Bitwarden
   - password 2 in a paper
   - encrypted string in an encrypted folder at [Filen](https://filen.io/r/e7758fe5b033ed143e73a3cbafa3ff2f). 
