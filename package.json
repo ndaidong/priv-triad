@@ -1,6 +1,6 @@
 {
   "name": "priv-triad",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web tool for encrypting crypto wallet private keys with multi passwords",
   "author": "@ndaidong",
   "type": "module",
