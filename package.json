@@ -12,12 +12,15 @@
     "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.6",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.51.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.4.0",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.4.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "svelte": "^4.2.1",
-    "vite": "^4.4.11"
+    "globals": "^15.4.0",
+    "svelte": "^4.2.18",
+    "vite": "^5.2.13"
   },
   "private": true
 }
