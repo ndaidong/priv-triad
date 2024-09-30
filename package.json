@@ -13,14 +13,14 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.4.0",
-    "@sveltejs/vite-plugin-svelte": "^3.1.1",
-    "autoprefixer": "^10.4.19",
-    "eslint": "^9.4.0",
+    "@eslint/js": "^9.11.1",
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.11.1",
     "eslint-plugin-svelte3": "^4.0.0",
-    "globals": "^15.4.0",
-    "svelte": "^4.2.18",
-    "vite": "^5.2.13"
+    "globals": "^15.9.0",
+    "svelte": "^4.2.19",
+    "vite": "^5.4.8"
   },
   "private": true
 }
